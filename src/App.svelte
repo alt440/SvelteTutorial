@@ -7,9 +7,9 @@
 	let showModal = false;
 	let messageModal;
 	let infoBubbleGroup = [];
+	let titleIdeas;
 
 	const surprise = () => {
-		console.log('Surprise!');
 
 		//if its currently showing, add component to store
 		if(showModal && infoBubbleGroup.length < 10){
@@ -18,6 +18,7 @@
 				finalMessage = "It's some Svelte!";
 			}
 			infoBubbleGroup[infoBubbleGroup.length] = { id:infoBubbleGroup.length, message: finalMessage };
+			messageModal = "";
 		}
 		showModal = !showModal;
 	};
@@ -25,33 +26,52 @@
 
 <main>
 	<Modal showModal={showModal} message={messageModal} on:click={surprise} />
-	<div>
-		<div class="inputsToSurprise">
-			<input type="text" class="daBestInput" bind:value={messageModal} />
-			<button class="surpriseButton" on:click={surprise}>Surprise</button>
+	<div class="mainDiv1">
+		<div class="titleDiv">
+			<label>Title of this Discussion: </label>
+			<input type="text" bind:value={titleIdeas}>
 		</div>
-		<br>
-		<ul>
-			{#each infoBubbleGroup as item}
-					<li><InfoBubble message={item.message} /></li>
-			{/each}
-		</ul>
+		<div>
+			<div class="inputsToSurprise">
+				<input type="text" class="daBestInput" bind:value={messageModal} />
+				<button class="surpriseButton" on:click={surprise}>Add Idea</button>
+			</div>
+			<br>
+			<div class="infoBubbles">
+				{#each infoBubbleGroup as item}
+						<InfoBubble message={item.message} />
+				{/each}
+			</div>
+		</div>
 	</div>
 </main>
 
 <style>
+	:global(:root){
+   		--first-color: #464A4E;
+		--second-color: #EEEEEE;
+		--third-color: #025179;
+		--fourth-color: #2B2D42;
+		--fifth-color: #990000;
+		--def-font-size: 18px;
+		--title-font-size: 24px;
+	}
+
 	main {
-		background-color: gray;
+		background-color: var(--first-color);
 		width: 100vw;
 		height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		top: 0;
 		left: 0;
 		margin: 0;
 		padding: 0;
 		position: absolute;
+		font-size: var(--def-font-size);
+	}
+
+	div.mainDiv1{
+		top: 15vh;
+		position: relative;
 	}
 
 	button {
@@ -60,41 +80,65 @@
 	}
 
 	.inputsToSurprise {
+		position: relative;
+		top: 10vh;
+		width: 100%;
+		text-align: center;
 		display: inline-block;
 	}
 
-	ul > li {
-		margin-top: 5px;
+	.infoBubbles {
+		position: relative;
+		top: 10vh;
+		max-width: 100vw;
+		margin-left: 10vw;
+		margin-right: 10vw;
+		margin-top: 5vh;
+
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 5vw;
 	}
 
-	ul {
-		list-style-type: none;
-	}
-
-	input.daBestInput {
+	input {
 		appearance: none;
 		border: none;
 		outline: none;
-		border-bottom: .2em solid white;
+		border-bottom: .2em solid var(--second-color);
 		background-color: transparent;
 		padding: .4em;
-		color: white;
-		caret-color: white;
+		color: var(--second-color);
+		caret-color: var(--second-color);
 		margin-right: 15px;
 	}
 
 	button.surpriseButton {
 		appearance: none;
-		border: .2em solid white;
+		border: .2em solid var(--second-color);
 		background: transparent;
 		padding: .85em 1.5em;
-		color: white;
+		color: var(--second-color);
 		transition: 0.2s;
+		border-radius: 5px;
 	}
 
 	button.surpriseButton:hover {
-		border: .2em solid gray;
-		background: white;
-		color: gray;
+		border: .2em solid var(--first-color);
+		background: var(--second-color);
+		color: var(--first-color);
+	}
+
+	div.titleDiv {
+		display:flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		color: var(--second-color);
+		width: 100%;
+		font-size: var(--title-font-size);
+		top:2vh;
+		position:relative;
 	}
 </style>

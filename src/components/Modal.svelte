@@ -22,6 +22,7 @@
         padding: 0;
         left: 0;
         top: 0;
+        z-index: 5;
         height: 100vh;
         width: 100vw;
         background-color: rgba(0,0,0,0.5);
@@ -31,7 +32,7 @@
         position: absolute;
         height: 10vh;
         width: 20vw;
-        background-color: white;
+        background-color: var(--second-color);
         border-radius: 28px;
         left: 50vw;
         top: 50vh;
@@ -45,6 +46,6 @@
 
     p {
         font-size: 20px;
-        color: gray;
+        color: var(--first-color);
     }
 </style>
