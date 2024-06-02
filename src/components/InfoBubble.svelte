@@ -1,7 +1,11 @@
 <script>
+    export let id;
+    export let idStrPrefix;
     export let message;
     let likes = 0;
     let dislikes = 0;
+
+    $: fullIdExit = `${idStrPrefix}${id}`;
 
     const increaseLike = () => {
         likes++;
@@ -12,11 +16,14 @@
     }
 </script>
 
-<div class="containerBubble">
-    <div class="title">{message}</div>
-    <div class="innerDiv">
-        <button class="btnLike" on:click={increaseLike}><img src="images/thumbsUpIcon6.png" alt="Like button" width="20px"> &nbsp; <label contenteditable="true" bind:innerText={likes}></label></button>
-        <button class="btnDislike" on:click={increaseDislike}><img src="images/thumbsUpIcon6.png" class="dislike" alt="Dislike button" width="20px"> &nbsp; <label contenteditable="true" bind:innerText={dislikes}></label></button>
+<div>
+    <button id={fullIdExit} class="exit" on:click>X</button>
+    <div class="containerBubble">
+        <div class="title">{message}</div>
+        <div class="innerDiv">
+            <button class="btnLike" on:click={increaseLike}><img src="images/thumbsUpIcon6.png" alt="Like button" width="20px"> &nbsp; <label contenteditable="true" bind:innerText={likes}></label></button>
+            <button class="btnDislike" on:click={increaseDislike}><img src="images/thumbsUpIcon6.png" class="dislike" alt="Dislike button" width="20px"> &nbsp; <label contenteditable="true" bind:innerText={dislikes}></label></button>
+        </div>
     </div>
 </div>
 
@@ -46,6 +53,13 @@
     div.title {
         font-size: var(--title-font-size);
         margin-bottom: 8px;
+    }
+
+    button.exit{
+        position: absolute;
+        background-color: transparent;
+        border: none;
+        color: var(--second-color);
     }
 
     button{

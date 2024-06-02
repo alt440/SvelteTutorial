@@ -9,6 +9,8 @@
 	let infoBubbleGroup = [];
 	let titleIdeas;
 
+	let infoBubbleIdPrefix = "infoBubbleExit";
+
 	const surprise = () => {
 
 		//if its currently showing, add component to store
@@ -22,24 +24,40 @@
 		}
 		showModal = !showModal;
 	};
+
+	function removeElement(index) {
+		infoBubbleGroup = infoBubbleGroup.filter((_, i) => i !== index);
+	}
+
+	const removeInfo = (e) => {
+		let idElement = e.target.id;
+		let indexEl = idElement.replace(infoBubbleIdPrefix, "");
+		removeElement(parseInt(indexEl));
+		//adjust ids after element removed
+		infoBubbleGroup.forEach(function(el) {
+			if(el.id >= indexEl){
+				el.id = el.id-1;
+			}
+		})
+	}
 </script>
 
 <main>
 	<Modal showModal={showModal} message={messageModal} on:click={surprise} />
 	<div class="mainDiv1">
 		<div class="titleDiv">
-			<label>Title of this Discussion: </label>
+			<label>Title of this Debate: </label>
 			<input type="text" bind:value={titleIdeas}>
 		</div>
 		<div>
 			<div class="inputsToSurprise">
 				<input type="text" class="daBestInput" bind:value={messageModal} />
-				<button class="surpriseButton" on:click={surprise}>Add Idea</button>
+				<button class="surpriseButton" on:click={surprise}>Add Suggestion</button>
 			</div>
 			<br>
 			<div class="infoBubbles">
 				{#each infoBubbleGroup as item}
-						<InfoBubble message={item.message} />
+						<InfoBubble id={item.id} idStrPrefix={infoBubbleIdPrefix} message={item.message} on:click={removeInfo}/>
 				{/each}
 			</div>
 		</div>
