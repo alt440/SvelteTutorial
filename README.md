@@ -1,103 +1,47 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+# Demo of the application
 
----
+https://github.com/alt440/SvelteTutorial/assets/35940672/97516b90-03f3-4555-9302-9d077f419703
 
-# svelte app
+# How to run the code on your machine (Windows) using VS Code
+1- Download NodeJS.
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
-
+2- Go to the command prompt (cmd). Run the command 
 ```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+npm -g install degit
 ```
+to install degit, a tool that will help us set up a Svelte project.
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+3- Use 'cd' in the command prompt to navigate to your desired project directory.
 
-
-## Get started
-
-Install the dependencies...
-
+4- Execute:
 ```bash
-cd svelte-app
+degit sveltejs/template <nameOfProjectHere>
+```
+where <nameOfProjectHere> is the name of your project, without the <> signs. This will create the svelte project along with required files.
+
+5- Open VS Code. Go to Extensions -> Add the Svelte extension 'Svelte for VS Code' by Svelte.
+
+6- Open your project directory in VS Code.
+
+7- Open a terminal in VS code by looking in the top bar for 'Terminal' -> 'Open a new terminal'.
+
+8- Verify that the terminal is currently on your project directory. Then execute the command:
+```bash
 npm install
 ```
+to install all the dependencies that svelte will need (which can be seen from the package.json file of your project).
 
-...then start [Rollup](https://rollupjs.org):
-
+9- Once this is complete, run from your terminal:
 ```bash
 npm run dev
 ```
 
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
 
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
+Your terminal will log information as to where the application is running. On my machine, it runs on port 8080, through localhost (localhost:8080/).
 
 
-## Single-page app mode
 
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-If you want to use `baseUrl` or `path` aliases within your `tsconfig`, you need to set up `@rollup/plugin-alias` to tell Rollup to resolve the aliases. For more info, see [this StackOverflow question](https://stackoverflow.com/questions/63427935/setup-tsconfig-path-in-svelte).
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
+# IMPORTANT! SvelteJS is no longer supported. I didn't know when I started the project. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
 
 Then, from within your project folder:
 
