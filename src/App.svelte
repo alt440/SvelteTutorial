@@ -19,7 +19,13 @@
 			if(messageModal === undefined || messageModal === ""){
 				finalMessage = "It's some Svelte!";
 			}
-			infoBubbleGroup[infoBubbleGroup.length] = { id:infoBubbleGroup.length, message: finalMessage };
+
+			//get last id
+			let nextId = 0;
+			if(infoBubbleGroup.length > 0){
+				nextId = infoBubbleGroup[infoBubbleGroup.length - 1].id + 1;
+			}
+			infoBubbleGroup[infoBubbleGroup.length] = { id:nextId, message: finalMessage };
 			messageModal = "";
 		}
 		showModal = !showModal;
@@ -28,21 +34,13 @@
 	function removeElement(index) {
 		infoBubbleGroup = infoBubbleGroup.filter((_, i) => i !== index);
 	}
-
-	const removeInfo = (e) => {
-		let idElement = e.target.id;
-		let indexEl = idElement.replace(infoBubbleIdPrefix, "");
-		removeElement(parseInt(indexEl));
-		//adjust ids after element removed
-		infoBubbleGroup.forEach(function(el) {
-			if(el.id >= indexEl){
-				el.id = el.id-1;
-			}
-		})
-	}
 </script>
 
 <main>
+	<!-- To avoid image glitch, pre-render element and make it invisible -->
+	<div class="invisibleDiv">
+		<InfoBubble id=999 idStrPrefix={infoBubbleIdPrefix} message="" />
+	</div>
 	<Modal showModal={showModal} message={messageModal} on:click={surprise} />
 	<div class="mainDiv1">
 		<div class="titleDiv">
@@ -56,8 +54,8 @@
 			</div>
 			<br>
 			<div class="infoBubbles">
-				{#each infoBubbleGroup as item}
-						<InfoBubble id={item.id} idStrPrefix={infoBubbleIdPrefix} message={item.message} on:click={removeInfo}/>
+				{#each infoBubbleGroup as item, index}
+						<InfoBubble id={item.id} idStrPrefix={infoBubbleIdPrefix} message={item.message} on:click={() => removeElement(index)} />
 				{/each}
 			</div>
 		</div>
@@ -158,5 +156,12 @@
 		font-size: var(--title-font-size);
 		top:2vh;
 		position:relative;
+	}
+
+	.invisibleDiv {
+		pointer-events: none;
+		opacity: 0;
+		z-index: -1;
+		position: absolute;
 	}
 </style>
