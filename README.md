@@ -1,6 +1,6 @@
 # Demo of the application
 
-https://github.com/alt440/SvelteTutorial/assets/35940672/1c7c1029-4ef6-45a3-b54b-db23fcef5a20
+https://github.com/alt440/SvelteTutorial/assets/35940672/66dd92bd-c6ba-44f6-ad1c-a83ca6851d23
 
 # How to run the code on your machine (Windows) using VS Code
 1- Download NodeJS.
