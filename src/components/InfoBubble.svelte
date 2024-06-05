@@ -2,30 +2,34 @@
     export let id;
     export let idStrPrefix;
     export let message;
+    //used for the delete feature
+    export let rendered = true;
     let likes = 0;
     let dislikes = 0;
 
     $: fullIdExit = `${idStrPrefix}${id}`;
 
     const increaseLike = () => {
-        likes++;
+        ++likes;
     };
 
     const increaseDislike = () => {
-        dislikes++;
+        ++dislikes;
     }
 </script>
 
-<div>
-    <button id={fullIdExit} class="exit" on:click>X</button>
-    <div class="containerBubble">
-        <div class="title">{message}</div>
-        <div class="innerDiv">
-            <button class="btnLike" on:click={increaseLike}><img src="images/thumbsUpIcon6.png" alt="Like button" width="20px"> &nbsp; <label contenteditable="true" bind:innerText={likes}></label></button>
-            <button class="btnDislike" on:click={increaseDislike}><img src="images/thumbsUpIcon6.png" class="dislike" alt="Dislike button" width="20px"> &nbsp; <label contenteditable="true" bind:innerText={dislikes}></label></button>
+{#if rendered}
+    <div class={'infoBubble' + id}>
+        <button id={fullIdExit} class="exit" on:click>X</button>
+        <div class={'containerBubble ' + 'infoBubbleContainer'+id}>
+            <div class="title">{message}</div>
+            <div class="innerDiv">
+                <button class="btnLike" on:click={increaseLike}><img src="images/thumbsUpIcon6.png" alt="Like button" width="20px"> &nbsp; {likes}</button>
+                <button class="btnDislike" on:click={increaseDislike}><img src="images/thumbsUpIcon6.png" class="dislike" alt="Dislike button" width="20px"> &nbsp; {dislikes}</button>
+            </div>
         </div>
     </div>
-</div>
+{/if}
 
 <style>
     div.containerBubble{
@@ -94,10 +98,5 @@
 
     img.dislike {
         transform: scaleY(-1);
-    }
-
-    label {
-        display: inline !important;
-        pointer-events: none;
     }
 </style>

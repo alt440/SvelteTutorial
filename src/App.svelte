@@ -1,5 +1,5 @@
 <script>
-
+	//https://svelte.dev/repl/28996f04783542ceafed7cc6a85128b9?version=3.23.0
 	import Modal from './components/Modal.svelte';
 	import InfoBubble from './components/InfoBubble.svelte';
 
@@ -25,14 +25,29 @@
 			if(infoBubbleGroup.length > 0){
 				nextId = infoBubbleGroup[infoBubbleGroup.length - 1].id + 1;
 			}
-			infoBubbleGroup[infoBubbleGroup.length] = { id:nextId, message: finalMessage };
+			infoBubbleGroup[infoBubbleGroup.length] = { id:nextId, message: finalMessage, rendered: true };
 			messageModal = "";
 		}
 		showModal = !showModal;
 	};
 
-	function removeElement(index) {
-		infoBubbleGroup = infoBubbleGroup.filter((_, i) => i !== index);
+	function removeElement(id) {
+		/*
+		 * IMPORTANT! 
+		 * I have created an attribute 'rendered' to the component. This attribute allows us to determine whether 
+		 * html content is displayed for the component. When no html is displayed, I believe it deletes the 
+		 * component (onDestroy call in the background?).
+		 * Without the logic below, the values for like / dislike were passed to the component taking the deleted
+		 * instance's place.
+		 */
+		infoBubbleGroup.forEach(function(infoBubble){
+			if(infoBubble.id === id){
+				infoBubble.rendered = false;
+			}
+		});
+
+		//triggers reflow so components re-rendered
+		infoBubbleGroup = [...infoBubbleGroup];
 	}
 </script>
 
@@ -55,7 +70,7 @@
 			<br>
 			<div class="infoBubbles">
 				{#each infoBubbleGroup as item, index}
-						<InfoBubble id={item.id} idStrPrefix={infoBubbleIdPrefix} message={item.message} on:click={() => removeElement(index)} />
+						<InfoBubble id={item.id} idStrPrefix={infoBubbleIdPrefix} message={item.message} rendered={item.rendered} on:click={() => removeElement(item.id)} />
 				{/each}
 			</div>
 		</div>
